@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+    <link rel="stylesheet" href="todo.css">
+
+    <!--got this from google fonts-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap" rel="stylesheet">
+    
+</head>
+<body>
+    <div class="todo-container">
+        <h2>To-Do List 📋</h2>
+        <input type="text" id="task" placeholder="Add your task">
+        <input type="time" id="taskTime" class="time-input">
+        <button onclick="addTask()">Add</button>
+        <ul id="taskList"></ul>
+    </div>
+    <audio id="alarmSound" src="smb_pause.wav"></audio>
+    <script>
+        if ("Notification" in window) {
+            Notification.requestPermission();
+        }
+        
+        function addTask() {
+            let taskInput = document.getElementById("task");
+            let timeInput = document.getElementById("taskTime");
+            let taskValue = taskInput.value.trim();
+            let timeValue = timeInput.value;
+            if (taskValue === "" || timeValue === "") return;
+            
+            let li = document.createElement("li");
+            li.innerHTML = `<span onclick="toggleTask(this)">${taskValue} - ${timeValue}</span> <button onclick="removeTask(this)">X</button>`;
+            document.getElementById("taskList").appendChild(li);
+            
+            setAlarm(taskValue, timeValue);
+            
+            taskInput.value = "";
+            timeInput.value = "";
+        }
+        
+        function toggleTask(element) {
+            element.classList.toggle("checked");
+        }
+        
+        function removeTask(button) {
+            button.parentElement.remove();
+        }
+        
+        function setAlarm(task, time) {
+            let now = new Date();
+            let alarmTime = new Date();
+            let [hours, minutes] = time.split(":");
+            alarmTime.setHours(hours, minutes, 0, 0);
+            
+            let timeDifference = alarmTime - now;
+            if (timeDifference > 0) {
+                setTimeout(() => {
+                    playAlarm();
+                    setTimeout(() => {
+                        if ("Notification" in window && Notification.permission === "granted") {
+                            new Notification(`Reminder: ${task} is due now!`);
+                        }
+                        alert(`Reminder: ${task} is due now!`);
+                    }, 3000); 
+                }, timeDifference);
+            }
+        }
+        
+        function playAlarm() {
+            let alarm = document.getElementById("alarmSound");
+            alarm.play();
+        }
+    </script>
+</body>
+</html>

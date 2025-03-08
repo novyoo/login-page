@@ -1,0 +1,65 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: url(undertale.gif);
+    background-position: bottom;
+    background-size: cover;
+    font-family:"Pixelify Sans", sans-serif;
+}
+
+.todo-container {
+    background: rgba(100, 115, 105, 0.7);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 300px;
+}
+
+h2 {
+    text-align: center;
+}
+
+input, .time-input {
+    width: 70%;
+    padding: 8px;
+    margin-top: 5px;
+    background: rgba(225,225,225,0.9);
+}
+
+button {
+    background: #829f6b;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-family:"Pixelify Sans", sans-serif;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+}
+
+.checked {
+    text-decoration: line-through;
+    color: black;
+    opacity: 1;
+}
+
+/*got this from google fonts*/
+.pixelify-sans-body {
+    font-family: "Pixelify Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
+}
